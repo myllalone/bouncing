@@ -24,6 +24,11 @@ const colors = [
 
 let websocket
 
+const log = (msg) => {
+    const el = document.getElementById("mobile-console");
+    if (el) el.innerText += msg + "\n";
+}
+
 const creatMessageSelfElement = (content) => {
     const div = document.createElement("div")
 
@@ -87,6 +92,8 @@ const handleLogin = (event) => {
 
     websocket = new WebSocket("wss://bouncing.onrender.com")
     websocket.onmessage = processMessage
+
+    log("Usuário conectado: " + JSON.stringify(user))
 }
 
 const sendMenssage = (event) => {
@@ -101,6 +108,7 @@ const sendMenssage = (event) => {
     websocket.send(JSON.stringify(message))
 
     chatInput.value = ""
+    log("Mensagem enviada: " + message.content)
 }
 
 loginForm.addEventListener("submit", handleLogin)
