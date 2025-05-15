@@ -1,63 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=send" />
+<link rel="stylesheet" href="./css/style.css">
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=send" />
-    <link rel="stylesheet" href="./css/style.css">
+<title>Bouncing Chat</title>
 
-    <title>Bouncing Chat</title>
-</head>
-
-<body>
+</head><body>
     <video autoplay muted loop id="bg-video">
         <source src="/background/profiles-background.mp4">
         Seu navegador não suporta HTML5.
     </video>
-    <section class="container">
-
-        <section class="login">
-            <h2>Login</h2>
-            <form class="login-form">
-                <input type="text" class="login-input" placeholder="Seu nome" required />
-                <button type="submit" class="login-button">Entrar</button>
-            </form>
-        </section>
-
-        <section class="chat">
-            <section class="chat-messages">
-
-                <!-- <div class="message-self">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium
-                    perferendis possimus ipsam consequatur alias maxime nesciunt officiis soluta architecto repudiandae,
-                    nulla consequuntur commodi laboriosam mollitia hic. Nihil cum unde provident?
-                </div>
-
-                <div class="message-other">
-                    <span class="message-sender">...</span>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, aperiam sit saepe, tenetur
-                    nobis, sapiente eos dolorum ratione cupiditate natus quibusdam cumque esse ipsam. Itaque veritatis
-                    soluta labore ipsam architecto.
-                </div> -->
-
-            </section>
-
-            <form class="chat-form">
-                <input type="text" class="chat-input" placeholder="Digite uma mensagem" required />
-                <button type="submit" class="chat-button">
-                    <span class="material-symbols-outlined">send</span>
-                </button>
-            </form>
-        </section>
-
+    <section class="container"><section class="login">
+        <h2>Login</h2>
+        <form class="login-form">
+            <input type="text" class="login-input" placeholder="Seu nome" required />
+            <button type="submit" class="login-button">Entrar</button>
+        </form>
     </section>
 
-    <div id="mobile-console" style="white-space: pre-line; font-size: 12px;"></div>
+    <section class="chat">
+        <section class="chat-messages">
 
-    <script src="./js/script.js"></script>
-</body>
+            <!-- <div class="message-self">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium
+                perferendis possimus ipsam consequatur alias maxime nesciunt officiis soluta architecto repudiandae,
+                nulla consequuntur commodi laboriosam mollitia hic. Nihil cum unde provident?
+            </div>
 
-</html>
+            <div class="message-other">
+                <span class="message-sender">...</span>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, aperiam sit saepe, tenetur
+                nobis, sapiente eos dolorum ratione cupiditate natus quibusdam cumque esse ipsam. Itaque veritatis
+                soluta labore ipsam architecto.
+            </div> -->
+
+        </section>
+
+        <form class="chat-form">
+            <input type="text" class="chat-input" placeholder="Digite uma mensagem" required />
+            <button type="submit" class="chat-button">
+                <span class="material-symbols-outlined">send</span>
+            </button>
+        </form>
+    </section>
+
+</section>
+
+<script src="./js/script.js"></script>
+
+</body></html>
