@@ -85,7 +85,7 @@ const handleLogin = (event) => {
     login.style.display = "none"
     chat.style.display = "flex"
 
-    websocket = new WebSocket("wss://bouncing-chat.onrender.com")
+    websocket = new WebSocket("wss://bouncing.onrender.com")
     websocket.onmessage = processMessage
 }
 
