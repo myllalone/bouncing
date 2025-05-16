@@ -168,6 +168,16 @@ body {
     align-self: flex-start;
 }
 
+.message-system {
+    font-family: 'Cal Sans', sans-serif;
+    letter-spacing: 2px;
+    background-color: rgb(255, 0, 0);
+    color: #f2f2f2;
+    border-radius: 0px 15px 15px 15px;
+    align-self: center;
+    text-align: center;
+}
+
 .message-sender {
     display: block;
     margin-bottom: 15px;
