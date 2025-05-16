@@ -168,11 +168,19 @@ body {
     align-self: flex-start;
 }
 
-.message-system {
+.message-system-user-left {
     font-family: 'Cal Sans', sans-serif;
     letter-spacing: 2px;
-    background-color: rgb(255, 0, 0);
-    color: #f2f2f2;
+    color: rgb(255, 0, 0);
+    border-radius: 0px 15px 15px 15px;
+    align-self: center;
+    text-align: center;
+}
+
+.message-system-user-entered {
+    font-family: 'Cal Sans', sans-serif;
+    letter-spacing: 2px;
+    color: rgb(30, 255, 0);
     border-radius: 0px 15px 15px 15px;
     align-self: center;
     text-align: center;
