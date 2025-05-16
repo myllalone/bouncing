@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const SECRET_TOKEN = process.env.SECRET_TOKEN || "SEU_TOKEN_SEGURO_AQUI";
+
 const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
 
 // Função para enviar mensagem a todos os clientes conectados
@@ -27,7 +29,6 @@ function broadcastUserCount() {
 wss.on("connection", (ws) => {
     console.log("client connected");
 
-    // Envia nova contagem ao conectar
     broadcastUserCount();
 
     ws.on("error", console.error);
@@ -36,7 +37,15 @@ wss.on("connection", (ws) => {
         try {
             const parsed = JSON.parse(data);
 
-            // Repassa a mensagem normalmente para todos
+            // Verifica se a mensagem é do tipo 'entered' ou 'left'
+            if (parsed.type === "system" && ["entered", "left"].includes(parsed.action)) {
+                if (parsed.secret !== SECRET_TOKEN) {
+                    console.log("Mensagem rejeitada: token inválido.");
+                    return;
+                }
+            }
+
+            // Se passou, repassa normalmente
             broadcast(parsed);
         } catch (err) {
             console.error("Erro ao processar mensagem:", err.message);
@@ -45,8 +54,6 @@ wss.on("connection", (ws) => {
 
     ws.on("close", () => {
         console.log("client disconnected");
-
-        // Atualiza contagem ao desconectar
         broadcastUserCount();
     });
 });
