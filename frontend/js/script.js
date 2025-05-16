@@ -2,7 +2,8 @@
 
 const login = document.querySelector(".login")
 const loginForm = login.querySelector(".login-form")
-const loginInput = login.querySelector(".login-input")
+const loginInput = login.querySelectorAll(".login-input")[0] // campo de usuário
+const passwordInput = document.querySelectorAll(".login-input")[1] // campo de senha
 
 // chat elements
 
@@ -31,30 +32,21 @@ const log = (msg) => {
 
 const creatMessageSelfElement = (content) => {
     const div = document.createElement("div")
-
     div.classList.add("message-self")
     div.innerHTML = content
-
     return div
 }
 
 const creatMessageOtherElement = (content, sender, senderColor) => {
     const div = document.createElement("div")
     const span = document.createElement("span")
-
     div.classList.add("message-other")
-
     div.classList.add("message-self")
-
     span.classList.add("message-sender")
-
     span.style.color = senderColor
-
     div.appendChild(span)
-
     span.innerHTML = sender
     div.innerHTML += content
-
     return div
 }
 
@@ -72,11 +64,8 @@ const scrollScreen = () => {
 
 const processMessage = ({ data }) => {
     const { userId, userName, userColor, content } = JSON.parse(data)
-
     const message = userId == user.id ? creatMessageSelfElement(content) : creatMessageOtherElement(content, userName, userColor)
-
     chatMessages.appendChild(message)
-
     scrollScreen()
 }
 
@@ -84,8 +73,10 @@ const handleLogin = async (event) => {
     event.preventDefault();
 
     const username = loginInput.value.trim();
-    if (!username) {
-        log("Digite um nome válido.");
+    const password = passwordInput.value.trim();
+
+    if (!username || !password) {
+        log("Digite um usuário e uma senha válidos.");
         return;
     }
 
@@ -94,20 +85,26 @@ const handleLogin = async (event) => {
         const userSnap = await userRef.get();
 
         if (userSnap.exists) {
-            // Usuário autorizado
-            user.id = crypto.randomUUID();
-            user.name = username;
-            user.color = getRandomColor();
+            const savedPassword = userSnap.data().password;
 
-            login.style.display = "none";
-            chat.style.display = "flex";
+            if (password === savedPassword) {
+                user.id = crypto.randomUUID();
+                user.name = username;
+                user.color = getRandomColor();
 
-            websocket = new WebSocket("wss://bouncing.onrender.com");
-            websocket.onmessage = processMessage;
+                login.style.display = "none";
+                chat.style.display = "flex";
 
-            log("Usuário autorizado e conectado: " + JSON.stringify(user));
+                websocket = new WebSocket("wss://bouncing.onrender.com");
+                websocket.onmessage = processMessage;
+
+                log("Usuário autorizado e conectado: " + JSON.stringify(user));
+            } else {
+                log("Senha incorreta.");
+                window.location.href = "https://www.google.com";
+            }
         } else {
-            log("Usuário não autorizado. Redirecionando...");
+            log("Usuário não encontrado. Redirecionando...");
             window.location.href = "https://www.google.com";
         }
     } catch (error) {
