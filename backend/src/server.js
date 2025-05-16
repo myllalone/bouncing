@@ -1,16 +1,47 @@
-const { WebSocketServer } = require("ws")
-const dotenv = require("dotenv")
+const { WebSocketServer } = require("ws");
+const dotenv = require("dotenv");
 
-dotenv.config()
+dotenv.config();
 
-const wss = new WebSocketServer({ port: process.env.PORT || 8080 })
+const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
+
+function broadcast(data) {
+    const msg = JSON.stringify(data);
+    wss.clients.forEach((client) => {
+        if (client.readyState === client.OPEN) {
+            client.send(msg);
+        }
+    });
+}
+
+function broadcastUserCount() {
+    broadcast({
+        type: "system",
+        action: "count",
+        count: wss.clients.size
+    });
+}
 
 wss.on("connection", (ws) => {
-    ws.on("error", console.error)
+    console.log("client connected");
+
+    broadcastUserCount(); // atualiza todos com a nova contagem
+
+    ws.on("error", console.error);
 
     ws.on("message", (data) => {
-        wss.clients.forEach((client) => client.send(data.toString()))
-    })
+        try {
+            const parsed = JSON.parse(data);
 
-    console.log("client connected")
-})
+            // repassa a mensagem recebida para todos
+            broadcast(parsed);
+        } catch (err) {
+            console.error("Erro ao processar mensagem:", err.message);
+        }
+    });
+
+    ws.on("close", () => {
+        console.log("client disconnected");
+        broadcastUserCount(); // atualiza todos com a nova contagem
+    });
+});
