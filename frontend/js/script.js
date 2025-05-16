@@ -15,7 +15,7 @@ const onlineCounter = document.getElementById("online-count-number");
 
 const user = { id: "", name: "", color: "" };
 
-const SECRET_TOKEN = "SEU_TOKEN_SEGURO_AQUI"; // deve ser igual ao do servidor
+const SECRET_TOKEN = "jkdsajhuGYFY876GyvcGHJKv757G7G8Nnnbc-32783hds$gbhgvfx#dfAAsdvFG@"; // deve ser igual ao do servidor
 
 const colors = [
   "cadeblue", "darkgoldenrod", "darkkhaki", "hotpink", "gold", "white",
