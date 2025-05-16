@@ -11,6 +11,7 @@ const chat = document.querySelector(".chat");
 const chatForm = chat.querySelector(".chat-form");
 const chatInput = chat.querySelector(".chat-input");
 const chatMessages = chat.querySelector(".chat-messages");
+const onlineCounter = document.getElementById("online-count-number");
 
 const user = { id: "", name: "", color: "" };
 
@@ -61,11 +62,19 @@ const scrollScreen = () => {
   });
 };
 
+const updateOnlineCounter = (count) => {
+  onlineCounter.textContent = count;
+};
+
 const processMessage = ({ data }) => {
   const parsed = JSON.parse(data);
 
-  // Mensagem de sistema (usuário entrou/saiu)
   if (parsed.type === "system") {
+    if (parsed.action === "count") {
+      updateOnlineCounter(parsed.count);
+      return;
+    }
+
     const systemDiv = document.createElement("div");
 
     if (parsed.action === "entered") {
@@ -81,7 +90,6 @@ const processMessage = ({ data }) => {
     return;
   }
 
-  // Mensagem normal
   const { userId, userName, userColor, content } = parsed;
   const message =
     userId == user.id
@@ -121,7 +129,6 @@ const handleLogin = async (event) => {
         websocket = new WebSocket("wss://bouncing.onrender.com");
         websocket.onmessage = processMessage;
 
-        // Mensagem de entrada
         websocket.onopen = () => {
           const systemMessage = {
             type: "system",
@@ -131,7 +138,6 @@ const handleLogin = async (event) => {
           websocket.send(JSON.stringify(systemMessage));
         };
 
-        // Mensagem de saída
         window.addEventListener("beforeunload", () => {
           if (websocket && websocket.readyState === WebSocket.OPEN) {
             const systemMessage = {
