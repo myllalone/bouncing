@@ -5,15 +5,17 @@ dotenv.config();
 
 const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
 
+// Função para enviar mensagem a todos os clientes conectados
 function broadcast(data) {
-    const msg = JSON.stringify(data);
+    const message = JSON.stringify(data);
     wss.clients.forEach((client) => {
         if (client.readyState === client.OPEN) {
-            client.send(msg);
+            client.send(message);
         }
     });
 }
 
+// Função que envia a contagem de usuários online
 function broadcastUserCount() {
     broadcast({
         type: "system",
@@ -25,7 +27,8 @@ function broadcastUserCount() {
 wss.on("connection", (ws) => {
     console.log("client connected");
 
-    broadcastUserCount(); // atualiza todos com a nova contagem
+    // Envia nova contagem ao conectar
+    broadcastUserCount();
 
     ws.on("error", console.error);
 
@@ -33,7 +36,7 @@ wss.on("connection", (ws) => {
         try {
             const parsed = JSON.parse(data);
 
-            // repassa a mensagem recebida para todos
+            // Repassa a mensagem normalmente para todos
             broadcast(parsed);
         } catch (err) {
             console.error("Erro ao processar mensagem:", err.message);
@@ -42,6 +45,8 @@ wss.on("connection", (ws) => {
 
     ws.on("close", () => {
         console.log("client disconnected");
-        broadcastUserCount(); // atualiza todos com a nova contagem
+
+        // Atualiza contagem ao desconectar
+        broadcastUserCount();
     });
 });
