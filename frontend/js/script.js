@@ -11,7 +11,7 @@ const chatForm = chat.querySelector(".chat-form")
 const chatInput = chat.querySelector(".chat-input")
 const chatMessages = chat.querySelector(".chat-messages")
 
-const user = {id: "", name: "", color: ""}
+const user = { id: "", name: "", color: "" }
 
 const colors = [
     "cadeblue",
@@ -80,20 +80,39 @@ const processMessage = ({ data }) => {
     scrollScreen()
 }
 
-const handleLogin = (event) => {
-    event.preventDefault()
+const handleLogin = async (event) => {
+    event.preventDefault();
 
-    user.id = crypto.randomUUID()
-    user.name = loginInput.value
-    user.color = getRandomColor()
+    const username = loginInput.value.trim();
+    if (!username) {
+        log("Digite um nome válido.");
+        return;
+    }
 
-    login.style.display = "none"
-    chat.style.display = "flex"
+    try {
+        const userRef = window.db.collection("usuarios").doc(username);
+        const userSnap = await userRef.get();
 
-    websocket = new WebSocket("wss://bouncing.onrender.com")
-    websocket.onmessage = processMessage
+        if (userSnap.exists) {
+            // Usuário autorizado
+            user.id = crypto.randomUUID();
+            user.name = username;
+            user.color = getRandomColor();
 
-    log("Usuário conectado: " + JSON.stringify(user))
+            login.style.display = "none";
+            chat.style.display = "flex";
+
+            websocket = new WebSocket("wss://bouncing.onrender.com");
+            websocket.onmessage = processMessage;
+
+            log("Usuário autorizado e conectado: " + JSON.stringify(user));
+        } else {
+            log("Usuário não autorizado. Redirecionando...");
+            window.location.href = "https://www.google.com";
+        }
+    } catch (error) {
+        log("Erro ao consultar o Firestore: " + error.message);
+    }
 }
 
 const sendMenssage = (event) => {
