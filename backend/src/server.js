@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const SECRET_TOKEN = process.env.SECRET_TOKEN || "SEU_TOKEN_SEGURO_AQUI";
+const SECRET_TOKEN = process.env.SECRET_TOKEN || "jkdsajhuGYFY876GyvcGHJKv757G7G8Nnnbc-32783hds$gbhgvfx#dfAAsdvFG@";
 
 const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
 
