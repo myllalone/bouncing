@@ -47,6 +47,24 @@
 
 </section>
 
+<!-- Firebase SDK compatível com JS tradicional -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDmaO9rvHP8G-9wAz3Jy5jGEp1iZ655Bk",
+    authDomain: "duskchat-4cf19.firebaseapp.com",
+    projectId: "duskchat-4cf19",
+    storageBucket: "duskchat-4cf19.firebasestorage.app",
+    messagingSenderId: "669887699005",
+    appId: "1:669887699005:web:45c11e32789ff40aaab254"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  window.db = firebase.firestore(); // expõe pro script.js
+</script>
+
 <script src="./js/script.js"></script>
 
 </body></html>
