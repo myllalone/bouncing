@@ -15,6 +15,8 @@ const onlineCounter = document.getElementById("online-count-number");
 
 const user = { id: "", name: "", color: "" };
 
+const SECRET_TOKEN = "SEU_TOKEN_SEGURO_AQUI"; // deve ser igual ao do servidor
+
 const colors = [
   "cadeblue", "darkgoldenrod", "darkkhaki", "hotpink", "gold", "white",
   "aqua", "aliceblue", "antiquewhite", "aquamarine", "azure", "beige", "bisque",
@@ -133,7 +135,8 @@ const handleLogin = async (event) => {
           const systemMessage = {
             type: "system",
             action: "entered",
-            userName: user.name
+            userName: user.name,
+            secret: SECRET_TOKEN
           };
           websocket.send(JSON.stringify(systemMessage));
         };
@@ -143,7 +146,8 @@ const handleLogin = async (event) => {
             const systemMessage = {
               type: "system",
               action: "left",
-              userName: user.name
+              userName: user.name,
+              secret: SECRET_TOKEN
             };
             websocket.send(JSON.stringify(systemMessage));
           }
