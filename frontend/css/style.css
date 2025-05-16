@@ -11,17 +11,23 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Faz com que o vídeo ocupe a largura da tela */
-    height: 100%; /* Faz com que o vídeo ocupe a altura da tela */
-    object-fit: cover; /* Faz com que o vídeo cubra toda a tela sem distorcer */
-    z-index: -1; /* Fica atrás do conteúdo */
+    width: 100%;
+    /* Faz com que o vídeo ocupe a largura da tela */
+    height: 100%;
+    /* Faz com que o vídeo ocupe a altura da tela */
+    object-fit: cover;
+    /* Faz com que o vídeo cubra toda a tela sem distorcer */
+    z-index: -1;
+    /* Fica atrás do conteúdo */
 }
-  
-  body, html {
+
+body,
+html {
     margin: 0;
     padding: 0;
     height: 100%;
-  }  
+}
+
 :root {
     font-size: 16px;
 }
@@ -47,7 +53,7 @@ body {
     padding: 20px;
 }
 
-.login > h2 {
+.login>h2 {
     text-align: center;
     font-size: 1.5rem;
     margin-bottom: 0.6rem;
@@ -68,6 +74,7 @@ body {
     color: rgb(255, 255, 255);
     outline: none;
     border-radius: 6px;
+    transition: 0.3s ease;
 }
 
 .login-input::placeholder {
@@ -77,6 +84,10 @@ body {
 
 .login-input:focus {
     outline: 2px solid rgb(172, 172, 172);
+}
+
+.login-input:hover {
+    transform: scale(1.05);
 }
 
 .login-button {
@@ -140,11 +151,11 @@ body {
     cursor: pointer;
 }
 
-.chat-button > span {
+.chat-button>span {
     font-size: 1.8rem;
 }
 
-.chat-messages > div {
+.chat-messages>div {
     padding: 10px;
     width: 100%;
     max-width: 250px;
@@ -208,6 +219,7 @@ body {
     align-items: center;
     gap: 8px;
     z-index: 10;
+    position: fixed;
 }
 
 .online-count-number {
@@ -217,4 +229,13 @@ body {
 
 .online-counter .material-symbols-outlined {
     font-size: 20px;
+}
+
+.back-link {
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+    font-size: 0.85rem;
+    color: white;
+    text-decoration: none;
 }
