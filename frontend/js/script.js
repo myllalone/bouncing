@@ -99,6 +99,11 @@ const handleLogin = (event) => {
 const sendMenssage = (event) => {
     event.preventDefault()
 
+    if (!websocket || websocket.readyState !== WebSocket.OPEN) {
+        log("Erro: WebSocket ainda não está conectado.");
+        return;
+    }
+
     const message = {
         userId: user.id,
         userName: user.name,
