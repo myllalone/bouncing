@@ -20,7 +20,30 @@ const colors = [
     "darkkhaki",
     "hotpink",
     "gold",
-    "white"
+    "white",
+    "aqua",
+    "aliceblue",
+    "antiquewhite",
+    "aquamarine",
+    "azure",
+    "beige",
+    "bisque",
+    "blueviolet",
+    "chartreuse",
+    "chocolate",
+    "coral",
+    "cornflowerblue",
+    "cornsilk",
+    "crismson",
+    "cyan",
+    "darkblue",
+    "darkcyan",
+    "darkgrey",
+    "darkgreen",
+    "darkmagenta",
+    "magenta",
+    "golden",
+    "darkolivegreen"
 ]
 
 let websocket
