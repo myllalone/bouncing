@@ -142,9 +142,11 @@
     document.getElementById("register-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const age = document.getElementById("age").value.trim();
       const password = document.getElementById("password").value.trim();
 
-      if (!username || !password) return alert("Preencha todos os campos.");
+      if (!username || !email || !age || !password) return alert("Preencha todos os campos.");
 
       try {
         const userRef = db.collection("usuarios").doc(username);
@@ -152,7 +154,7 @@
         if (doc.exists) {
           alert("Usuário já existe.");
         } else {
-          await userRef.set({ user: username, password });
+          await userRef.set({ usuario: username, email, idade: age, password });
           alert("Cadastro realizado com sucesso!");
           window.location.href = "index.html";
         }
