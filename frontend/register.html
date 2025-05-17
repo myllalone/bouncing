@@ -155,7 +155,6 @@
           alert("Usuário já existe.");
         } else {
           await userRef.set({ usuario: username, email, idade: age, password });
-          alert("Cadastro realizado com sucesso!");
           window.location.href = "index.html";
         }
       } catch (err) {
